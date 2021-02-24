@@ -7,13 +7,21 @@ function getTotalAccountsCount(accounts) {
 }
 
 function getBooksBorrowedCount(books) {
-  let accumulator = 0;
-  for (let i = 0; i < books.length; i++) {
-    if (books[i].borrows[0].returned === false) {
-      accumulator += 1;
+//   let accumulator = 0;
+//   for (let i = 0; i < books.length; i++) {
+//     if (books[i].borrows[0].returned === false) {
+//       accumulator += 1;
+//     }
+//   }
+//   return accumulator;
+// }
+
+  return books.reduce((acc, book) => {
+    if (book.borrows[0].returned === false) {
+       acc += 1;
     }
-  }
-  return accumulator;
+    return acc;
+  }, 0);
 }
 
 function getMostCommonGenres(books) { 
@@ -26,16 +34,24 @@ function getMostCommonGenres(books) {
     }
   });
   let countArray = [];
-  for (const [key, value] of Object.entries(countObj)) {
+  // loop ober the keys in the countObj
+  for (let key in countObj) {
+    // creating a new object with 'name' and 'count' and pushing it into the countArray
     countArray.push({
       'name' : key,
-      'count' : value
+      'count' : countObj[key]
     }); 
   }
+  // for (const [key, value] of Object.entries(countObj)) {
+  //   countArray.push({
+  //     'name' : key,
+  //     'count' : value
+  //   }); 
+  // }
   countArray.sort((count1,count2) => count2.count - count1.count);
   return countArray.slice(0, 5);
-}
 
+}
 function getMostPopularBooks(books) {
   return books
     .map(book => {
@@ -51,8 +67,10 @@ function getMostPopularBooks(books) {
 function getMostPopularAuthors(books, authors) {
 let returnArr = [];
 authors.forEach(author => {
+  const {first: firstName} = author.name;
+  const {name: {last: lastName}} = author;
   let returnAuthor = {
-    name: `${author.name.first} ${author.name.last}`, 
+    name: `${firstName} ${lastName}`, 
     count:0
   }
   books.forEach(book => {

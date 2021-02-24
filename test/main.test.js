@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 const {
-  totalBooksCount,
-  totalAccountsCount,
-  booksBorrowedCount,
+  getTotalBooksCount: totalBooksCount,
+  getTotalAccountsCount: totalAccountsCount,
+  getBooksBorrowedCount: booksBorrowedCount,
   getMostCommonGenres,
   getMostPopularBooks,
   getMostPopularAuthors,

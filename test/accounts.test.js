@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const {
   findAccountById,
   sortAccountsByLastName,
-  numberOfBorrows,
+  getTotalNumberOfBorrows: numberOfBorrows,
   getBooksPossessedByAccount,
 } = require("../public/src/accounts.js");
 
